@@ -9,7 +9,7 @@ const AppContext = React.createContext<Types.AppContextType | undefined>(
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [nodes, setNodes] = React.useState<Types.Node[]>([]);
-  const [title, setTitle] = React.useState("Rabbit hole #1");
+  const [title, setTitle] = React.useState(null);
 
   const addNode = (node: Types.Node) => {
     setNodes((prev) => [...prev, node]);

@@ -64,6 +64,7 @@ const Form = () => {
           onChange={(e) => setTitle(e.target.value)}
           className="text-2xl w-full bg-transparent border-none focus:outline-none focus:ring-0 p-0 font-mono font-light resize-none overflow-hidden"
           rows={1}
+          placeholder="My rabbit hole"
         />
         <Ui.Note
           value={note}
