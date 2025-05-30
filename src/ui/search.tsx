@@ -161,7 +161,7 @@ const Search: React.FC<SearchProps> = ({ onSelect }) => {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={() => searchTerm && results.length > 0 && setIsOpen(true)}
-          placeholder="Add Wikipedia article"
+          placeholder="Wikipedia article"
           className="block w-full pl-10 pr-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-white bg-[#2a2a2a] placeholder-[#8b8b8b]"
         />
         {isLoading && (

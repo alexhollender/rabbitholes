@@ -180,7 +180,7 @@ const Note = ({
         }
         className="w-full"
         style={isMobile ? mobileStyles : desktopStyles}
-        placeholder="Add note..."
+        placeholder="Note..."
         allowSpaceInQuery
       >
         <Mention
