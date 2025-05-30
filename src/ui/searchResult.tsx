@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as Utils from "@/lib/utils";
 
+import Image from "next/image";
+
 interface SearchResultProps {
   result: {
     title: string;
@@ -26,13 +28,15 @@ const SearchResult: React.FC<SearchResultProps> = ({
     >
       <div className="flex-shrink-0 w-12 h-12 bg-gray-200 rounded overflow-hidden">
         {result.image ? (
-          <img
+          <Image
             src={result.image}
             alt={result.title}
             className="w-full h-full object-cover"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = "none";
             }}
+            width={48}
+            height={48}
           />
         ) : (
           <div className="w-full h-full bg-gray-300 flex items-center justify-center"></div>

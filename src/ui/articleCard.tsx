@@ -4,6 +4,7 @@ import * as React from "react";
 import * as Context from "@/context/AppContext";
 import * as Types from "@/types";
 
+import Image from "next/image";
 import { useWikipediaSummary } from "@/hooks/useWikipediaSummary";
 import ArticleDrawer from "./articleDrawer";
 
@@ -71,10 +72,12 @@ const ArticleCard = ({
         <div className="flex gap-4">
           {articleData?.thumbnail && (
             <div className="flex-shrink-0">
-              <img
+              <Image
                 src={articleData.thumbnail.url}
                 alt={title}
                 className="w-16 h-16 object-cover rounded-md bg-gray-200"
+                width={64}
+                height={64}
               />
             </div>
           )}
@@ -98,7 +101,6 @@ const ArticleCard = ({
         onClose={() => setIsDrawerOpen(false)}
         articleTitle={title}
         onUpdateSummary={handleUpdateSummary}
-        canUpdate={nodeIndex !== undefined || onPreNodeUpdate !== undefined}
       />
     </>
   );

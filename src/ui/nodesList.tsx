@@ -34,7 +34,7 @@ const NodesList = () => {
               </div>
             </button>
             <p className="whitespace-pre-wrap">{node.note}</p>
-            <div className="pr-4">
+            <div>
               <Ui.ArticleCard
                 title={node.article.title}
                 summary={node.article.summary}

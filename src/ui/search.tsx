@@ -35,19 +35,6 @@ const Search: React.FC<SearchProps> = ({ onSelect }) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const resultsRef = React.useRef<HTMLDivElement>(null);
 
-  // Debounced search function
-  const debouncedSearch = React.useCallback(
-    debounce((term: string) => {
-      if (term.length > 0) {
-        searchWikipedia(term);
-      } else {
-        setResults([]);
-        setIsOpen(false);
-      }
-    }, 300),
-    []
-  );
-
   const searchWikipedia = async (query: string) => {
     setIsLoading(true);
     try {
@@ -85,9 +72,26 @@ const Search: React.FC<SearchProps> = ({ onSelect }) => {
     }
   };
 
+  const debouncedSearch = React.useCallback(
+    (term: string) => {
+      if (term.length > 0) {
+        searchWikipedia(term);
+      } else {
+        setResults([]);
+        setIsOpen(false);
+      }
+    },
+    [searchWikipedia]
+  );
+
+  const debouncedSearchWithDelay = React.useMemo(
+    () => debounce<string>(debouncedSearch, 300),
+    [debouncedSearch]
+  );
+
   React.useEffect(() => {
-    debouncedSearch(searchTerm);
-  }, [searchTerm, debouncedSearch]);
+    debouncedSearchWithDelay(searchTerm);
+  }, [searchTerm, debouncedSearchWithDelay]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -189,7 +193,7 @@ const Search: React.FC<SearchProps> = ({ onSelect }) => {
 
       {isOpen && results.length === 0 && !isLoading && searchTerm && (
         <div className="absolute z-50 w-full mt-1 border border-gray-200 rounded-md shadow-lg p-4 text-center text-gray-500">
-          No results found for "{searchTerm}"
+          No results found for &quot;{searchTerm}&quot;
         </div>
       )}
     </div>
@@ -197,14 +201,11 @@ const Search: React.FC<SearchProps> = ({ onSelect }) => {
 };
 
 // Utility function for debouncing
-function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  wait: number
-): (...args: Parameters<T>) => void {
+function debounce<T>(func: (arg: T) => void, wait: number): (arg: T) => void {
   let timeout: NodeJS.Timeout;
-  return (...args: Parameters<T>) => {
+  return (arg: T) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
+    timeout = setTimeout(() => func(arg), wait);
   };
 }
 

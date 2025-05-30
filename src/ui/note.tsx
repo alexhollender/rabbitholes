@@ -39,7 +39,11 @@ const mentionStyles = {
   input: {
     margin: 0,
     padding: "0.5rem 0.75rem",
-    border: "1px solid #d1d5db",
+    color: "white",
+    backgroundColor: "#2a2a2a",
+    "&::placeholder": {
+      color: "#8b8b8b",
+    },
     borderRadius: "0.375rem",
     width: "100%",
     minHeight: "70px",
@@ -49,7 +53,7 @@ const mentionStyles = {
   },
   suggestions: {
     list: {
-      backgroundColor: "white",
+      backgroundColor: "#191919",
       border: "1px solid rgba(0,0,0,0.15)",
       borderRadius: "0.375rem",
       boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
@@ -60,9 +64,8 @@ const mentionStyles = {
       zIndex: 50,
     },
     item: {
-      borderBottom: "1px solid #eee",
       "&focused": {
-        backgroundColor: "#f3f4f6",
+        backgroundColor: "#383838",
       },
     },
   },
@@ -76,7 +79,6 @@ const mobileStyles = {
   input: {
     ...mentionStyles.input,
     border: "none",
-    padding: "0",
     outline: "none",
   },
   suggestions: {
@@ -105,8 +107,8 @@ const Note = ({
   setSelectedArticle,
 }: NoteProps) => {
   const [results, setResults] = React.useState<WikipediaPage[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(-1);
+  // const [isLoading, setIsLoading] = React.useState(false);
+  const [selectedIndex] = React.useState(-1);
   const [uiLang] = React.useState("en");
   const [isMobile, setIsMobile] = React.useState(true);
 
@@ -120,7 +122,7 @@ const Note = ({
   }, []);
 
   const searchWikipedia = async (query: string) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await fetch(
         `https://${uiLang}.wikipedia.org/w/api.php?format=json&origin=*&formatversion=2&action=query&prop=pageimages%7Cdescription&uselang=content&smaxage=300&maxage=300&generator=prefixsearch&pilicense=any&piprop=thumbnail&pithumbsize=160&gpssearch=${encodeURIComponent(
@@ -146,7 +148,7 @@ const Note = ({
       setResults([]);
       return [];
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 

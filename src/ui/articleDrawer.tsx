@@ -8,7 +8,6 @@ interface ArticleDrawerProps {
   onClose: () => void;
   articleTitle: string;
   onUpdateSummary: (summary: string) => void;
-  canUpdate: boolean;
 }
 
 const ArticleDrawer = ({
@@ -16,7 +15,6 @@ const ArticleDrawer = ({
   onClose,
   articleTitle,
   onUpdateSummary,
-  canUpdate,
 }: ArticleDrawerProps) => {
   const [selectedText, setSelectedText] = React.useState("");
   const [articleContent, setArticleContent] = React.useState("");
